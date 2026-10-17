@@ -2,9 +2,25 @@
   "name": "chat-ui-vitals",
   "version": "0.0.0",
   "private": true,
-  "description": "Browser-perceived OpenTelemetry for a React LLM chat. Local prototype, not published.",
+  "description": "Browser-perceived OpenTelemetry for a React LLM chat.",
   "license": "MIT",
   "author": "Aditya Reddy <adityareddy.dev@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adityareddy-dev/chat-ui-vitals.git"
+  },
+  "homepage": "https://github.com/adityareddy-dev/chat-ui-vitals#readme",
+  "bugs": {
+    "url": "https://github.com/adityareddy-dev/chat-ui-vitals/issues"
+  },
+  "keywords": [
+    "opentelemetry",
+    "web-vitals",
+    "chat",
+    "react",
+    "genai",
+    "llm"
+  ],
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -26,18 +42,31 @@
   },
   "scripts": {
     "build": "node -e \"require('node:fs').rmSync('dist', { recursive: true, force: true })\" && tsc -p tsconfig.json",
-    "typecheck": "tsc -p tsconfig.json --noEmit",
-    "test": "node --import ./test/ts-imports.ts --test --test-reporter=spec test/*.test.ts"
+    "prepack": "npm run build",
+    "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p test/browser/tsconfig.json --noEmit",
+    "test": "node --import ./test/ts-imports.ts --test --test-reporter=spec test/*.test.ts",
+    "test:browser": "playwright test -c test/browser/playwright.config.ts"
   },
   "dependencies": {
     "@opentelemetry/api": "1.9.1",
     "@opentelemetry/api-logs": "0.223.0"
   },
   "devDependencies": {
+    "@ai-sdk/otel": "1.0.143",
+    "@ai-sdk/react": "4.0.147",
+    "@opentelemetry/context-async-hooks": "2.12.0",
+    "@opentelemetry/core": "2.12.0",
     "@opentelemetry/sdk-logs": "0.223.0",
     "@opentelemetry/sdk-metrics": "2.12.0",
     "@opentelemetry/sdk-trace-base": "2.12.0",
+    "@playwright/test": "1.64.1",
     "@types/node": "24.10.15",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "ai": "7.0.143",
+    "esbuild": "0.28.2",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
     "typescript": "5.9.3"
   }
 }
